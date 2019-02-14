@@ -36,7 +36,8 @@ class EightBall
             puts "Type your question now: "
             print "> "
             q = gets
-            puts @answers.sample.colorize(@colors.sample)
+            num = rand(20)
+            puts @answers[num][:name].colorize(@answers[num][:color].to_sym)
             puts 
             question
         when "2"
@@ -103,7 +104,12 @@ end
 
 colors = [:red, :green, :yellow, :blue, :magenta, :cyan]
 
-answers = ["yes", "no", "maybe", "Not likely", "All signs point to no"]
+answers = [{name: "It is certain", color: "green"}, {name: "It is decidedly so", color: "green"}, {name: "Without a doubt", color: "green"}, {name: "Yes - definitely", color: "green"}, 
+    {name: "You may rely on it", color: "green"}, {name: "As I see it, yes", color: "green"}, {name: "Most likely", color: "green"}, {name: "Outlook good", color: "green"}, 
+    {name: "Yes", color: "green"}, {name: "Signs point to yes", color: "green"}, {name: "Reply hazy, try again later", color: "yellow"}, {name: "Ask again later", color: "yellow"}, 
+    {name: "Better not tell you know", color: "yellow"}, {name: "Cannot predict now", color: "yellow"}, {name: "Concentrate and ask again", color: "yellow"}, 
+    {name: "Don't count on it", color: "red"}, {name: "My reply is no", color: "red"}, {name: "My sources say no", color: "red"}, {name: "Outlook not so good", color: "red"}, 
+    {name: "Very Doubtful", color: "red"}]
 
 menu_options = ["Ask a question", "quit"]
 
