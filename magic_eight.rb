@@ -1,10 +1,10 @@
-require "pry"
+# require "pry"
 require "colorize"
 
 class EightBall
 
-    def initialize(answers, options, colors)
-        @answers, @options, @colors = answers, options, colors
+    def initialize(answers, options, admin_options, colors)
+        @answers, @options, @admin_options, @colors = answers, options, admin_options, colors
         @backup_answers = @answers.clone
         question
     end
@@ -17,54 +17,76 @@ class EightBall
             puts "#{index + 1}) #{option}"
         end
         # binding.pry
-        input = gets.to_i
+        print "> "
+        input = gets.strip
         
         case input
-        when 1
+        when "1"
             puts "Type your question now: "
+            print "> "
             q = gets
             puts @answers.sample.colorize(@colors.sample)
             puts 
             question
-        when 2
-            add_answer
-        when 3
-            reset
-        when 4
-            print_answers
-        when 5
+        when "2"
             puts "Goodbye"
-            sleep(3)
+            sleep(1.5)
             puts `clear`
             exit
+        when "admin"
+            admin_menu
         else
             puts "invalid entry"
             question
         end
     end
     
+    def admin_menu
+        puts "Pick an admin option: "
+        @admin_options.each_with_index do |option, index|
+            puts "#{index + 1}) #{option}"
+        end
+        print "> "
+        choice = gets.strip
+        case choice
+        when "1"
+            add_answer
+        when "2"
+            reset
+        when "3"
+            print_answers
+        when "4"
+            question
+        else
+            puts "invalid entry"
+            admin_menu
+        end
+
+    end
+    
     def add_answer
         puts "What answer would you like to add?"
+        print "> "
         q = gets.strip
         if !@answers.include? q
             @answers << q
-            question
+            admin_menu
         else
             puts "That answer is already present"
-            question
+            admin_menu
         end
     end
     
     def reset
         @answers = @backup_answers.clone
-        question
+        admin_menu
     end
 
     def print_answers
         @answers.each do |answer|
             puts answer
         end
-        question
+        admin_menu
     end
 end
 
@@ -72,6 +94,8 @@ colors = [:red, :green, :yellow, :blue, :magenta, :cyan, :white]
 
 answers = ["yes", "no", "maybe", "Not likely", "All signs point to no"]
 
-menu_options = ["Ask a question", "Add an answer", "Reset to default answers", "Print all answers", "quit"]
+menu_options = ["Ask a question", "quit"]
 
-app = EightBall.new(answers, menu_options, colors)
+admin_options = ["Add an answer", "Reset to default answers", "Print all answers", "Return to user menu"]
+
+app = EightBall.new(answers, menu_options, admin_options, colors)
