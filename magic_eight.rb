@@ -2,10 +2,13 @@ require "pry"
 require "colorize"
 
 class EightBall
+
     def initialize(answers, options)
         @answers, @options = answers, options
+        @backup_answers = @answers.clone
         question
     end
+
     def question
         puts "Welcome to the Ruby magic eight ball"
         puts "What would you like to do?"
@@ -13,7 +16,7 @@ class EightBall
         @options.each_with_index do |option, index|
             puts "#{index + 1}) #{option}"
         end
-        
+        # binding.pry
         input = gets.to_i
         
         case input
@@ -36,6 +39,23 @@ class EightBall
             puts "invalid entry"
             question
         end
+    end
+    
+    def add_answer
+        puts "What answer would you like to add?"
+        q = gets.strip
+        if !@answers.include? q
+            @answers << q
+            question
+        else
+            puts "That answer is already present"
+            question
+        end
+    end
+    
+    def reset
+        @answers = @backup_answers.clone
+        question
     end
 end
 
