@@ -6,6 +6,17 @@ class EightBall
     def initialize(answers, options, admin_options, colors)
         @answers, @options, @admin_options, @colors = answers, options, admin_options, colors
         @backup_answers = @answers.clone
+        eight_ball_art
+    end
+
+    def eight_ball_art
+        lines = ["        ____", "    ,dP9CGG88@b,", "  ,IP  _   Y888@@b,", " dIi  (_)   G8888@b", "dCII  (_)   G8888@@b", 
+        "GCCIi     ,GG8888@@@", "GGCCCCCCCGGG88888@@@", "GGGGCCCGGGG88888@@@@...", "Y8GGGGGG8888888@@@@P.....", " Y88888888888@@@@@P......", 
+        " `Y8888888@@@@@@@P'......", "    `@@@@@@@@@P'.......", "        """"........" ]
+
+        lines.each do |line|
+            puts line.colorize(@colors.sample)
+        end
         question
     end
 
@@ -90,7 +101,7 @@ class EightBall
     end
 end
 
-colors = [:red, :green, :yellow, :blue, :magenta, :cyan, :white]
+colors = [:red, :green, :yellow, :blue, :magenta, :cyan]
 
 answers = ["yes", "no", "maybe", "Not likely", "All signs point to no"]
 
