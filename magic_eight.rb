@@ -23,7 +23,7 @@ class EightBall
         when 1
             puts "Type your question now: "
             q = gets
-            puts @answers.sample.colorize(@colors.sample).blink
+            puts @answers.sample.colorize(@colors.sample)
             puts 
             question
         when 2
@@ -31,6 +31,8 @@ class EightBall
         when 3
             reset
         when 4
+            print_answers
+        when 5
             puts "Goodbye"
             sleep(3)
             puts `clear`
@@ -57,12 +59,19 @@ class EightBall
         @answers = @backup_answers.clone
         question
     end
+
+    def print_answers
+        @answers.each do |answer|
+            puts answer
+        end
+        question
+    end
 end
 
 colors = [:red, :green, :yellow, :blue, :magenta, :cyan, :white]
 
 answers = ["yes", "no", "maybe", "Not likely", "All signs point to no"]
 
-menu_options = ["Ask a question", "Add an answer", "Reset to default answers", "quit"]
+menu_options = ["Ask a question", "Add an answer", "Reset to default answers", "Print all answers", "quit"]
 
 app = EightBall.new(answers, menu_options, colors)
