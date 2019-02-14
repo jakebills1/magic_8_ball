@@ -3,8 +3,8 @@ require "colorize"
 
 class EightBall
 
-    def initialize(answers, options)
-        @answers, @options = answers, options
+    def initialize(answers, options, colors)
+        @answers, @options, @colors = answers, options, colors
         @backup_answers = @answers.clone
         question
     end
@@ -23,7 +23,7 @@ class EightBall
         when 1
             puts "Type your question now: "
             q = gets
-            puts @answers.sample.colorize(:red)
+            puts @answers.sample.colorize(@colors.sample).blink
             puts 
             question
         when 2
@@ -59,8 +59,10 @@ class EightBall
     end
 end
 
+colors = [:red, :green, :yellow, :blue, :magenta, :cyan, :white]
+
 answers = ["yes", "no", "maybe", "Not likely", "All signs point to no"]
 
 menu_options = ["Ask a question", "Add an answer", "Reset to default answers", "quit"]
 
-app = EightBall.new(answers, menu_options)
+app = EightBall.new(answers, menu_options, colors)
