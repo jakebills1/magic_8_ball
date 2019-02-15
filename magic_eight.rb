@@ -36,7 +36,7 @@ class EightBall
             puts "Type your question now: "
             print "> "
             q = gets
-            num = rand(20)
+            num = rand(@answers.length)
             puts @answers[num][:name].colorize(@answers[num][:color].to_sym)
             puts 
             question
@@ -79,9 +79,11 @@ class EightBall
     def add_answer
         puts "What answer would you like to add?"
         print "> "
-        q = gets.strip
-        if !@answers.include? q
-            @answers << q
+        name_choice = gets.strip
+        puts "What color would you like that answer to display as?"
+        color_choice = gets.strip
+        if !@answers.include? name_choice
+            @answers << { name: name_choice, color: color_choice}
             admin_menu
         else
             puts "That answer is already present"
